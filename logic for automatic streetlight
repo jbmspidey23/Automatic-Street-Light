@@ -1,0 +1,31 @@
+#define LDR_AO 4    // Analog output from LDR module
+#define LDR_DO 2      // Digital output from LDR module
+#define LED_PIN 6    // LED pin
+
+void setup() {
+  pinMode(LDR_DO, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrAnalog = analogRead(LDR_AO);
+  int ldrDigital = digitalRead(LDR_DO);
+
+  Serial.print("LDR Analog Value: ");
+  Serial.print(ldrAnalog);
+  Serial.print(" | Digital Output: ");
+
+  if (ldrDigital == LOW) {  
+    // DARK condition (module output goes LOW)
+    digitalWrite(LED_PIN, HIGH);
+    Serial.println("DARK → Light ON");
+  } else {
+    // BRIGHT condition
+    digitalWrite(LED_PIN, LOW);
+    Serial.println("BRIGHT → Light OFF");
+  }
+
+  delay(500);
+}
